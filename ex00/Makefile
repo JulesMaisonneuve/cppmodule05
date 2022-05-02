@@ -1,4 +1,4 @@
-NAME	= fixed
+NAME	= bureaucrat
 FILES	= main.cpp Bureaucrat.cpp
 OBJ		= $(FILES:%.cpp=%.o)
 CC		= clang++
