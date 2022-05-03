@@ -66,6 +66,20 @@ Form::GradeTooLowException::GradeTooLowException()
 	std::cout << "The grade is too low" << std::endl;
 }
 
+void Form::execute(Bureaucrat const & executor) const
+{
+	if (this->getSigned() == false)
+	{
+		std::cout << this->getName() << " is not signed therefore the bureaucrat " << executor.getName() << " cannot sign it" << std::endl;
+	}
+	else if (executor.getGrade() > this->getGradeExec())
+		throw GradeTooLowException();
+	else
+	{
+		std::cout << executor.getName() << " executed " << this->getName() << std::endl;
+	}
+}
+
 std::ostream &operator<<(std::ostream &output, const Form &f)
 {
 	output << f.getName() << " is " << (f.getSigned() ? "signed, " : "not signed, ") << "grade required to sign: " << f.getGradeSign() << ", grade required to execute: " << f.getGradeExec();

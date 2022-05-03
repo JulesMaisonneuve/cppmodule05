@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include "Bureaucrat.hpp"
+# include <cstdlib>
 
 class Bureaucrat;
 
@@ -23,6 +24,7 @@ class Form
 		std::string getName() const;
 		bool getSigned() const;
 		void beSigned(const Bureaucrat &b);
+		virtual void execute(Bureaucrat const & executor) const;
 	class GradeTooHighException : public std::exception
 	{
 		private:

@@ -68,6 +68,11 @@ void Bureaucrat::decrementGrade()
 		this->grade += 1;
 }
 
+void Bureaucrat::executeForm(Form const & form)
+{
+	form.execute(*this);
+}
+
 Bureaucrat::GradeTooHighException::GradeTooHighException()
 {
 	std::cout << "The grade is too high (Max 150)" << std::endl;
