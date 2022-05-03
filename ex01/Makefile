@@ -1,4 +1,4 @@
-NAME	= bureaucrat
+NAME	= form
 FILES	= main.cpp Bureaucrat.cpp Form.cpp
 OBJ		= $(FILES:%.cpp=%.o)
 CC		= clang++

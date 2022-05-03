@@ -2,13 +2,13 @@
 
 Bureaucrat::Bureaucrat(void)
 {
-	std::cout << "Bureaucrat default constructor called" << std::endl;
+	// std::cout << "Bureaucrat default constructor called" << std::endl;
 	return ;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &b)
 {
-	std::cout << "Copy constructor called" << std::endl;
+	// std::cout << "Copy constructor called" << std::endl;
 	*this = b;
 }
 
@@ -20,9 +20,20 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other)
     return *this;
 }
 
+void Bureaucrat::signForm(Form &form)
+{
+	if (form.getSigned())
+		std::cout << this->getName() << " couldn't sign " << form.getName() << " because it was already signed" << std::endl;
+	else
+	{
+		form.beSigned(*this);
+		std::cout << this->getName() << " signed " << form.getName() << std::endl;
+	}
+}
+
 Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name)
 {
-	std::cout << "Bureaucrat constructor called" << std::endl;
+	// std::cout << "Bureaucrat constructor called" << std::endl;
 	if (grade > 150)
 		throw GradeTooHighException();
 	else if (grade < 1)
@@ -72,7 +83,7 @@ Bureaucrat::GradeTooLowException::GradeTooLowException()
 
 Bureaucrat::~Bureaucrat(void)
 {
-	std::cout << "Bureaucrat destructor called" << std::endl;
+	// std::cout << "Bureaucrat destructor called" << std::endl;
 	return ;
 }
 
