@@ -1,6 +1,6 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : Form("ShrubberyCreationForm", 145, 137), target(target)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string target) : Form("ShrubberyCreationForm", 145, 137), target(target)
 {
 	return ;
 }
@@ -16,17 +16,7 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
     return *this;
 }
 
-std::string ShrubberyCreationForm::getTarget() const
-{
-	return (this->target);
-}
-
-void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
-{
-	
-}
-
-// void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
+// void ShrubberyCreationForm::executeSpecial() const
 // {
 // 	std::ofstream ofs(this->getTarget() + "_shrubbery");
 // 	ofs << "	      /\\n" 

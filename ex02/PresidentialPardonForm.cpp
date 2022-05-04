@@ -1,6 +1,6 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : Form("PresidentialPardonForm", 25, 5), target(target)
+PresidentialPardonForm::PresidentialPardonForm(const std::string target) : Form("PresidentialPardonForm", 25, 5), target(target)
 {
 	return ;
 }
@@ -16,14 +16,9 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
     return *this;
 }
 
-std::string PresidentialPardonForm::getTarget() const
+void PresidentialPardonForm::executeSpecial() const
 {
-	return (this->target);
-}
-
-void PresidentialPardonForm::execute(Bureaucrat const & executor) const
-{
-	std::cout << this->getTarget() << " has been forgiven by Zaphod Beeblebrox" << std::endl;
+	std::cout << this->target << " has been forgiven by Zaphod Beeblebrox" << std::endl;
 }
 
 PresidentialPardonForm::~PresidentialPardonForm(void)

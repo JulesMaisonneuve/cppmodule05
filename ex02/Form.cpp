@@ -3,9 +3,9 @@
 Form::Form(const std::string name, const int gS, const int gE) : name(name), gradeToSign(gS), gradeToExec(gE)
 {
 	if (this->gradeToSign < 1 || this->gradeToExec < 1)
-		throw GradeTooHighException();
+		throw GradeTooHighException("Grade is too high");
 	else if (this->gradeToSign > 150 || this->gradeToExec > 150)
-		throw GradeTooLowException();
+		throw GradeTooLowException("Grade is too low");
 	this->Signed = false;
 	return ;
 }
@@ -43,6 +43,12 @@ bool Form::getSigned() const
 	return (this->Signed);
 }
 
+std::string Form::getTarget() const
+{
+	return (this->target);
+}
+
+
 void Form::beSigned(const Bureaucrat &b)
 {
 	if (b.getGrade() <= this->getGradeSign())
@@ -51,38 +57,47 @@ void Form::beSigned(const Bureaucrat &b)
 	}
 	else
 	{
-		std::cout << b.getName() << " couldn't sign " << this->getName() << " because grade is too low" << std::endl;
-		throw GradeTooLowException();
+		std::cout << b.getName() << " couldn't sign " << this->getName() << " because his grade is too low" << std::endl;
+		throw GradeTooLowException("Grade is too low");
 	}
 }
 
-Form::GradeTooHighException::GradeTooHighException()
+Form::GradeTooHighException::GradeTooHighException(const char *msg) : msg(msg) {}
+
+const char *Form::GradeTooHighException::what(void) const throw()
 {
-	std::cout << "The grade is too high" << std::endl;
+	return this->msg;
 }
 
-Form::GradeTooLowException::GradeTooLowException()
+Form::GradeTooLowException::GradeTooLowException(const char *msg)
+	: msg(msg) {}
+
+const char *Form::GradeTooLowException::what(void) const throw()
 {
-	std::cout << "The grade is too low" << std::endl;
+	return this->msg;
 }
 
 void Form::execute(Bureaucrat const & executor) const
 {
 	if (this->getSigned() == false)
 	{
-		std::cout << this->getName() << " is not signed therefore the bureaucrat " << executor.getName() << " cannot sign it" << std::endl;
+		std::cout << this->getName() << " is not signed therefore the bureaucrat " << executor.getName() << " cannot execute it" << std::endl;
 	}
 	else if (executor.getGrade() > this->getGradeExec())
-		throw GradeTooLowException();
+	{
+		std::cout << executor.getName() << " couldn't execute" << this->getName() << " because: ";
+		throw GradeTooLowException("Grade is too low");
+	}
 	else
 	{
 		std::cout << executor.getName() << " executed " << this->getName() << std::endl;
+		this->executeSpecial();
 	}
 }
 
 std::ostream &operator<<(std::ostream &output, const Form &f)
 {
-	output << f.getName() << " is " << (f.getSigned() ? "signed, " : "not signed, ") << "grade required to sign: " << f.getGradeSign() << ", grade required to execute: " << f.getGradeExec();
+	output << f.getName() << " is " << (f.getSigned() ? "signed, " : "not signed, ") << "grade required to sign: " << f.getGradeSign() << ", grade required to execute: " << f.getGradeExec() << ", target: " << f.getTarget();
 	return output;
 }
 
