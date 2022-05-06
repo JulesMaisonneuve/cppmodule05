@@ -42,7 +42,7 @@ Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name)
 	return ;
 }
 
-const std::string Bureaucrat::getName() const
+const std::string Bureaucrat::getName()
 {
 	return (this->name);
 }
@@ -81,6 +81,11 @@ Bureaucrat::GradeTooHighException::GradeTooHighException()
 Bureaucrat::GradeTooLowException::GradeTooLowException()
 {
 	std::cout << "The grade is too low (Min 1)" << std::endl;
+}
+
+virtual const char* what() const throw()
+{
+	return ()
 }
 
 Bureaucrat::~Bureaucrat(void)

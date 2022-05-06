@@ -68,14 +68,14 @@ void Bureaucrat::decrementGrade()
 		this->grade += 1;
 }
 
-Bureaucrat::GradeTooHighException::GradeTooHighException()
+const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	std::cout << "The grade is too high (Max 150)" << std::endl;
+	return ("The grade is too high (Max 1)");
 }
 
-Bureaucrat::GradeTooLowException::GradeTooLowException()
+const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	std::cout << "The grade is too low (Min 1)" << std::endl;
+	return ("The grade is too low (Min 150)");
 }
 
 Bureaucrat::~Bureaucrat(void)

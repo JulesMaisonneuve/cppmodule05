@@ -6,6 +6,9 @@
 
 int main(void)
 {
+	std::cout << "=====================================================================" << std::endl;
+	std::cout << "\e[1m*Bad instanciation Tests*\e[0m" << std::endl;
+	std::cout << "=====================================================================" << std::endl;
 	try
 	{
 		Bureaucrat Jimmy("Jimmy", 41);

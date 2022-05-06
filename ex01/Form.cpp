@@ -1,11 +1,16 @@
 #include "Form.hpp"
 
+Form::Form(void) : name("Default form name"), gradeToSign(150), gradeToExec(150)
+{
+	return ;
+}
+
 Form::Form(const std::string name, const int gS, const int gE) : name(name), gradeToSign(gS), gradeToExec(gE)
 {
 	if (this->gradeToSign < 1 || this->gradeToExec < 1)
-		throw GradeTooHighException();
+		throw Form::GradeTooHighException();
 	else if (this->gradeToSign > 150 || this->gradeToExec > 150)
-		throw GradeTooLowException();
+		throw Form::GradeTooLowException();
 	this->Signed = false;
 	return ;
 }
@@ -50,20 +55,21 @@ void Form::beSigned(const Bureaucrat &b)
 	}
 	else
 	{
-		std::cout << b.getName() << " couldn't sign " << this->getName() << " because grade is too low" << std::endl;
-		throw GradeTooLowException();
+		std::cout << b.getName() << " couldn't sign " << this->getName() << " because: ";
+		throw Form::GradeTooLowException();
 	}
 }
 
-Form::GradeTooHighException::GradeTooHighException()
+const char* Form::GradeTooHighException::what() const throw()
 {
-	std::cout << "The grade is too high" << std::endl;
+	return ("The grade is too high");
 }
 
-Form::GradeTooLowException::GradeTooLowException()
+const char* Form::GradeTooLowException::what() const throw()
 {
-	std::cout << "The grade is too low" << std::endl;
+	return ("The grade is too low");
 }
+
 
 std::ostream &operator<<(std::ostream &output, const Form &f)
 {

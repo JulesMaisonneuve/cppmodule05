@@ -14,6 +14,7 @@ class Form
 		const int gradeToSign;
 		const int gradeToExec;
 	public:
+		Form(void);
 		Form(const std::string name, const int gS, const int gE);
 		Form(const Form &f);
 		Form& operator=(const Form &other);
@@ -27,14 +28,14 @@ class Form
 	{
 		private:
 		public:
-			GradeTooHighException();
+			virtual const char* what() const throw();
 	};
 
 	class GradeTooLowException : public std::exception
 	{
 		private:
 		public:
-			GradeTooLowException();
+			virtual const char* what() const throw();
 	};
 };
 

@@ -44,6 +44,8 @@
 		"stdexcept": "cpp",
 		"streambuf": "cpp",
 		"typeinfo": "cpp",
-		"compare": "cpp"
+		"compare": "cpp",
+		"concepts": "cpp",
+		"ranges": "cpp"
 	}
 }

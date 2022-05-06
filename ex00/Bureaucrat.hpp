@@ -24,14 +24,14 @@ class Bureaucrat
 	{
 		private:
 		public:
-			GradeTooHighException();
+			virtual const char* what() const throw();
 	};
 
 	class GradeTooLowException : public std::exception
 	{
 		private:
 		public:
-			GradeTooLowException();
+			virtual const char* what() const throw();
 	};
 };
 
