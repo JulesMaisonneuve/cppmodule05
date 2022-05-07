@@ -4,16 +4,17 @@
 # include "Bureaucrat.hpp"
 # include "Form.hpp"
 # include <fstream>
+# include <string>
 
 class ShrubberyCreationForm : public Form
 {
 	private:
-		const std::string target;
+		std::string target;
 	public:
-		ShrubberyCreationForm(const std::string target);
+		ShrubberyCreationForm(const std::string &target);
 		ShrubberyCreationForm(const ShrubberyCreationForm &s);
 		ShrubberyCreationForm& operator=(const ShrubberyCreationForm &other);
-		// void executeSpecial() const;
+		void execute(Bureaucrat const & executor) const;
 		~ShrubberyCreationForm(void);
 };
 

@@ -27,8 +27,8 @@ void Bureaucrat::signForm(Form &form)
 		std::cout << this->getName() << " couldn't sign " << form.getName() << " because it was already signed" << std::endl;
 	else
 	{
-		std::cout << this->getName() << " signed " << form.getName() << std::endl;
 		form.beSigned(*this);
+		std::cout << this->getName() << " signed " << form.getName() << std::endl;
 	}
 }
 
@@ -76,7 +76,7 @@ void Bureaucrat::executeForm(Form const & form)
 	}
 	catch (std::exception &e)
 	{
-		std::cout << this->getName() << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
+		std::cout << this->getName() << " couldn't execute " << form.getName() << " because: " << e.what() << std::endl;
 	}
 }
 

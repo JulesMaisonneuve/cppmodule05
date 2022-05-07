@@ -14,11 +14,14 @@ class Intern
         Intern(void);
         Intern(const Intern &s);
         Intern& operator=(const Intern &other);
-        Form *makeForm(const std::string name, const std::string target);
-        Form *createPresidentialForm(const std::string target);
-        Form *createShrubberyForm(const std::string target);
-        Form *createRobotomyForm(const std::string target);
+        Form *makeForm(const std::string& name, const std::string& target);
         ~Intern(void);
+    class UnknownForm : public std::exception
+    {
+        private:
+        public:
+            virtual const char* what() const throw();
+    };
 };
 
 #endif 

@@ -5,37 +5,56 @@ Intern::Intern(void)
     return ;
 }
 
-Form *Intern::createPresidentialForm(const std::string target)
+Intern::Intern(const Intern &s)
 {
-    return (new PresidentialPardonForm(target));
+	(void)s;
 }
 
-Form *Intern::makeForm(const std::string name, const std::string target)
+Form *Intern::makeForm(const std::string &formName, const std::string &target)
 {
-    Form *(Intern::*form_array[4])(const std::string target);
-    std::string forms[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
+    Form* form = NULL;
+	int index;
+	std::string names[3] = {"robotomy request", "presidential pardon", "shrubbery creation"};
 
-    form_array[0] = &Intern::createShrubberyForm;
-    form_array[1] = &Intern::createRobotomyForm;
-    form_array[2] = &Intern::createPresidentialForm;
-
-    for (int i = 0; i < 3; i++)
-    {
-        if (name == forms[i])
-        {
-
-    // std::cout << "Intern creates " << 
-            return (this->*form_array[i])(target);
-        }
-    }
+	index = -1;
+	for (int i = 0; i < 3; i++)
+	{
+		if (formName == names[i])
+		{
+			index = i;
+			break;
+		}
+	}
+	switch (index)
+	{
+	case 0:
+		std::cout << "Intern creates " << formName << std::endl;
+		form = new RobotomyRequestForm(target);
+		break;
+	case 1:
+		std::cout << "Intern creates " << formName << std::endl;
+		form = new PresidentialPardonForm(target);
+		break;
+	case 2:
+		std::cout << "Intern creates " << formName << std::endl;
+		form = new ShrubberyCreationForm(target);
+		break;
+	default:
+		throw UnknownForm();
+		break;
+	}
+	return (form);
 }
-
 
 Intern& Intern::operator=(const Intern &other)
 {
-	if (this == &other)
-		return *this;
-    return *this;
+    (void)other;   
+    return (*this);
+}
+
+const char* Intern::UnknownForm::what() const throw()
+{
+	return ("Unknown form");
 }
 
 Intern::~Intern(void)

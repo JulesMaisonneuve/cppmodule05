@@ -17,7 +17,7 @@ class Bureaucrat
 		Bureaucrat(void);
 		Bureaucrat(const std::string name, int grade);
 		Bureaucrat(const Bureaucrat &b);
-		const std::string getName();
+		const std::string getName() const;
 		int getGrade() const;
 		void incrementGrade();
 		void decrementGrade();
@@ -29,14 +29,14 @@ class Bureaucrat
 	{
 		private:
 		public:
-			virtual const char* what() const throw();
+			GradeTooHighException();
 	};
 
 	class GradeTooLowException : public std::exception
 	{
 		private:
 		public:
-			virtual const char* what() const throw();
+			GradeTooLowException();
 	};
 };
 

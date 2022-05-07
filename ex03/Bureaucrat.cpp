@@ -1,13 +1,16 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(void)
+Bureaucrat::Bureaucrat(void) : name(""), grade(150)
 {
 	return ;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &b)
+Bureaucrat::Bureaucrat(const Bureaucrat &b) : name(b.getName()), grade(b.getGrade())
 {
-	*this = b;
+	if (grade > 150)
+		throw GradeTooLowException();
+	else if (grade < 1)
+		throw GradeTooHighException();
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other)
@@ -24,25 +27,21 @@ void Bureaucrat::signForm(Form &form)
 		std::cout << this->getName() << " couldn't sign " << form.getName() << " because it was already signed" << std::endl;
 	else
 	{
-		std::cout << this->getName() << " signed " << form.getName() << std::endl;
 		form.beSigned(*this);
+		std::cout << this->getName() << " signed " << form.getName() << std::endl;
 	}
 }
 
-Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name)
+Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name), grade(grade)
 {
 	if (grade > 150)
 		throw GradeTooLowException();
 	else if (grade < 1)
 		throw GradeTooHighException();
-	else
-	{
-		this->grade = grade;
-	}
 	return ;
 }
 
-const std::string Bureaucrat::getName()
+const std::string Bureaucrat::getName() const
 {
 	return (this->name);
 }
@@ -70,7 +69,15 @@ void Bureaucrat::decrementGrade()
 
 void Bureaucrat::executeForm(Form const & form)
 {
-	form.execute(*this);
+	try
+	{
+		form.execute(*this);
+		std::cout << this->getName() << " executed " << form.getName() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << this->getName() << " couldn't execute " << form.getName() << " because: " << e.what() << std::endl;
+	}
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException()
@@ -81,11 +88,6 @@ Bureaucrat::GradeTooHighException::GradeTooHighException()
 Bureaucrat::GradeTooLowException::GradeTooLowException()
 {
 	std::cout << "The grade is too low (Min 1)" << std::endl;
-}
-
-virtual const char* what() const throw()
-{
-	return ()
 }
 
 Bureaucrat::~Bureaucrat(void)

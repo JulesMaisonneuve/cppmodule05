@@ -1,5 +1,5 @@
 NAME	= form
-FILES	= main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+FILES	= main.cpp Bureaucrat.cpp Form.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
 OBJ		= $(FILES:%.cpp=%.o)
 CC		= clang++
 CFLAGS	= -Wall -Werror -Wextra -std=c++98

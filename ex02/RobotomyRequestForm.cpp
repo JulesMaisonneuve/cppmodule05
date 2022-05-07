@@ -1,6 +1,6 @@
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(std::string &target) : Form("RobotomyRequestForm", 72, 45), target(target)
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : Form("RobotomyRequestForm", 72, 45), target(target)
 {
 	return ;
 }
@@ -24,12 +24,10 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 	srand (time(NULL));
 	if (this->getSigned() == false)
 	{
-		std::cout << executor.getName() << " couldn't execute " << this->getName() << " because: ";
 		throw Form::FormNotSignedException();
 	}
 	else if (executor.getGrade() > this->getGradeExec())
 	{
-		std::cout << executor.getName() << " couldn't execute" << this->getName() << " because: ";
 		throw Form::GradeTooLowException();
 	}
 	int res = (rand() % 2);

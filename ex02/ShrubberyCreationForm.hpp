@@ -6,8 +6,6 @@
 # include <fstream>
 # include <string>
 
-# define FILE_SUFFIX "_shrubbery"
-
 class ShrubberyCreationForm : public Form
 {
 	private:
