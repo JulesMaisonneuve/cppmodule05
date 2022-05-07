@@ -1,29 +1,27 @@
 #include "Form.hpp"
 
-Form::Form(void) : name("Default form name"), gradeToSign(150), gradeToExec(150)
+Form::Form(void) : name("Default form name"), Signed(false), gradeToSign(150), gradeToExec(150)
 {
 	return ;
 }
 
-Form::Form(const std::string name, const int gS, const int gE) : name(name), gradeToSign(gS), gradeToExec(gE)
+Form::Form(const std::string name, const int gS, const int gE) : name(name), Signed(false), gradeToSign(gS), gradeToExec(gE)
 {
 	if (this->gradeToSign < 1 || this->gradeToExec < 1)
 		throw Form::GradeTooHighException();
 	else if (this->gradeToSign > 150 || this->gradeToExec > 150)
 		throw Form::GradeTooLowException();
-	this->Signed = false;
-	return ;
 }
 
-Form::Form(const Form &f) : name(f.name), gradeToSign(f.gradeToSign), gradeToExec(f.gradeToExec)
+Form::Form(const Form &f) : name(f.name), Signed(f.Signed), gradeToSign(f.gradeToSign), gradeToExec(f.gradeToExec)
 {
-	*this = f;
 }
 
 Form& Form::operator=(const Form &other)
 {
 	if (this == &other)
 		return *this;
+	this->Signed = other.Signed;
     return *this;
 }
 
@@ -59,6 +57,12 @@ void Form::beSigned(const Bureaucrat &b)
 		throw Form::GradeTooLowException();
 	}
 }
+
+const char* Form::FormAlreadySignedException::what() const throw()
+{
+	return ("The form was already signed");
+}
+
 
 const char* Form::GradeTooHighException::what() const throw()
 {

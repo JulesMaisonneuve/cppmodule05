@@ -1,13 +1,24 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(void)
+Bureaucrat::Bureaucrat(void) : name(""), grade(150)
 {
 	return ;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &b)
+Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name), grade(grade)
 {
-	*this = b;
+	if (grade > 150)
+		throw GradeTooLowException();
+	else if (grade < 1)
+		throw GradeTooHighException();
+}
+
+Bureaucrat::Bureaucrat(const Bureaucrat &b) : name(b.getName()), grade(b.getGrade())
+{
+	if (grade > 150)
+		throw Bureaucrat::GradeTooLowException();
+	else if (grade < 1)
+		throw Bureaucrat::GradeTooHighException();
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other)
@@ -21,7 +32,11 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other)
 void Bureaucrat::signForm(Form &form)
 {
 	if (form.getSigned())
-		std::cout << this->getName() << " couldn't sign " << form.getName() << " because it was already signed" << std::endl;
+	{
+
+		std::cout << this->getName() << " couldn't sign " << form.getName() << " because: ";
+		throw Form::FormAlreadySignedException();
+	}
 	else
 	{
 		form.beSigned(*this);
@@ -29,18 +44,6 @@ void Bureaucrat::signForm(Form &form)
 	}
 }
 
-Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name)
-{
-	if (grade > 150)
-		throw GradeTooHighException();
-	else if (grade < 1)
-		throw GradeTooLowException();
-	else
-	{
-		this->grade = grade;
-	}
-	return ;
-}
 
 const std::string Bureaucrat::getName() const
 {
@@ -55,7 +58,7 @@ int Bureaucrat::getGrade() const
 void Bureaucrat::incrementGrade()
 {
 	if (this->grade - 1 < 1)
-		throw GradeTooLowException();
+		throw GradeTooHighException();
 	else
 		this->grade -= 1;
 }
@@ -63,19 +66,19 @@ void Bureaucrat::incrementGrade()
 void Bureaucrat::decrementGrade()
 {
 	if (this->grade + 1 > 150)
-		throw GradeTooHighException();
+		throw GradeTooLowException();
 	else
 		this->grade += 1;
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("The grade is too high (Max 1)");
+	return ("The grade is too high");
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("The grade is too low (Min 150)");
+	return ("The grade is too low");
 }
 
 Bureaucrat::~Bureaucrat(void)

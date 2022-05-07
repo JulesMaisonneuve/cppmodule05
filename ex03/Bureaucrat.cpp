@@ -32,9 +32,9 @@ void Bureaucrat::signForm(Form &form)
 Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name)
 {
 	if (grade > 150)
-		throw GradeTooHighException();
-	else if (grade < 1)
 		throw GradeTooLowException();
+	else if (grade < 1)
+		throw GradeTooHighException();
 	else
 	{
 		this->grade = grade;
@@ -55,7 +55,7 @@ int Bureaucrat::getGrade() const
 void Bureaucrat::incrementGrade()
 {
 	if (this->grade - 1 < 1)
-		throw GradeTooLowException();
+		throw GradeTooHighException();
 	else
 		this->grade -= 1;
 }
@@ -63,7 +63,7 @@ void Bureaucrat::incrementGrade()
 void Bureaucrat::decrementGrade()
 {
 	if (this->grade + 1 > 150)
-		throw GradeTooHighException();
+		throw GradeTooLowException();
 	else
 		this->grade += 1;
 }

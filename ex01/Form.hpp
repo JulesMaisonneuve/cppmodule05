@@ -37,6 +37,12 @@ class Form
 		public:
 			virtual const char* what() const throw();
 	};
+	class FormAlreadySignedException : public std::exception
+	{
+		private:
+		public:
+			virtual const char* what() const throw();
+	};
 };
 
 std::ostream &operator<<(std::ostream &output, const Form &f);

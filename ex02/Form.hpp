@@ -14,7 +14,6 @@ class Form
 		bool Signed;
 		const int gradeToSign;
 		const int gradeToExec;
-		const std::string target;
 	public:
 		Form(const std::string name, const int gS, const int gE);
 		Form(const Form &f);
@@ -24,10 +23,8 @@ class Form
 		int getGradeExec() const;
 		std::string getName() const;
 		bool getSigned() const;
-		std::string getTarget() const;
 		void beSigned(const Bureaucrat &b);
-		void execute(Bureaucrat const & executor) const;
-		virtual void executeSpecial() const = 0;
+		virtual void execute(Bureaucrat const & executor) const = 0;
 	class GradeTooHighException : public std::exception
 	{
 		private:
@@ -40,6 +37,18 @@ class Form
 		private:
 		public:
 			virtual const char *what(void) const throw();
+	};
+	class FormAlreadySignedException : public std::exception
+	{
+		private:
+		public:
+			virtual const char* what() const throw();
+	};
+	class FormNotSignedException : public std::exception
+	{
+		private:
+		public:
+			virtual const char* what() const throw();
 	};
 };
 

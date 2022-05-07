@@ -62,20 +62,16 @@ void Form::beSigned(const Bureaucrat &b)
 	}
 }
 
-Form::GradeTooHighException::GradeTooHighException(const char *msg) : msg(msg) {}
-
-const char *Form::GradeTooHighException::what(void) const throw()
+const char* Form::GradeTooHighException::what() const throw()
 {
-	return this->msg;
+	return ("The grade is too high");
 }
 
-Form::GradeTooLowException::GradeTooLowException(const char *msg)
-	: msg(msg) {}
-
-const char *Form::GradeTooLowException::what(void) const throw()
+const char* Form::GradeTooLowException::what() const throw()
 {
-	return this->msg;
+	return ("The grade is too low");
 }
+
 
 void Form::execute(Bureaucrat const & executor) const
 {

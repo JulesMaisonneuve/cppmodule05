@@ -1,13 +1,17 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat(void)
+Bureaucrat::Bureaucrat(void) : name(""), grade(150)
 {
 	std::cout << "Bureaucrat default constructor called" << std::endl;
 	return ;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &b) : name(b.name), grade(b.grade)
+Bureaucrat::Bureaucrat(const Bureaucrat &b) : name(b.getName()), grade(b.getGrade())
 {
+	if (grade > 150)
+		throw Bureaucrat::GradeTooLowException();
+	else if (grade < 1)
+		throw Bureaucrat::GradeTooHighException();
 	std::cout << "Copy constructor called" << std::endl;
 }
 
@@ -19,15 +23,13 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other)
     return *this;
 }
 
-Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name)
+Bureaucrat::Bureaucrat(const std::string name, int grade) : name(name), grade(grade)
 {
 	std::cout << "Bureaucrat constructor called" << std::endl;
 	if (grade > 150)
 		throw Bureaucrat::GradeTooLowException();
 	else if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();
-	else
-		this->grade = grade;
 	return ;
 }
 

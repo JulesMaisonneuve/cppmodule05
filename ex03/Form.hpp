@@ -31,18 +31,14 @@ class Form
 	class GradeTooHighException : public std::exception
 	{
 		private:
-			const char *msg;
 		public:
-			GradeTooHighException(const char *msg);
 			virtual const char *what(void) const throw();
 	};
 
 	class GradeTooLowException : public std::exception
 	{
 		private:
-			const char *msg;
 		public:
-			GradeTooLowException(const char *msg);
 			virtual const char *what(void) const throw();
 	};
 };
