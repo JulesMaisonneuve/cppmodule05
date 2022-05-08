@@ -45,17 +45,14 @@ bool Form::getSigned() const
 	return (this->Signed);
 }
 
-void Form::beSigned(const Bureaucrat &b)
+Form& Form::beSigned(Bureaucrat const & b)
 {
-	if (b.getGrade() <= this->getGradeSign())
-	{
-		this->Signed = true;
-	}
-	else
-	{
-		std::cout << b.getName() << " couldn't sign " << this->getName() << " because: ";
+	if ( b.getGrade() > this->gradeToSign )
 		throw Form::GradeTooLowException();
-	}
+	else if (this->Signed)
+		throw Form::FormAlreadySignedException();
+	this->Signed = true;
+	return *this;
 }
 
 const char* Form::FormAlreadySignedException::what() const throw()

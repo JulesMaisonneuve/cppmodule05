@@ -21,14 +21,20 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other)
     return *this;
 }
 
-void Bureaucrat::signForm(Form &form)
+void Bureaucrat::signForm(Form &f)
 {
-	if (form.getSigned())
-		std::cout << this->getName() << " couldn't sign " << form.getName() << " because it was already signed" << std::endl;
-	else
+	try
 	{
-		form.beSigned(*this);
-		std::cout << this->getName() << " signed " << form.getName() << std::endl;
+		f.beSigned(*this);
+		std::cout << this->getName() << " signed " << f.getName() << std::endl;
+	}
+	catch (Form::GradeTooLowException &e)
+	{
+		std::cout << this->getName() << " couldn't sign " << f.getName() << " because: " << e.what() << std::endl;
+	}
+	catch (Form::FormAlreadySignedException &e)
+	{
+		std::cout << this->getName() << " couldn't sign " << f.getName() << " because: " << e.what() << std::endl;
 	}
 }
 
